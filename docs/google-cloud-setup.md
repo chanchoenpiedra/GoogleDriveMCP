@@ -1,105 +1,105 @@
-# Google Cloud Console Setup — Free OAuth2 Credentials for PluginDrive
+# Configuración de Google Cloud Console — Credenciales OAuth2 gratuitas para GoogleDrive MCP
 
-This is the **only setup step that requires Google Cloud Console**. It is completely free — no billing, no credit card, no paid services. You just need a Google account.
+Este es el **único paso que requiere Google Cloud Console**. Es completamente gratuito — sin facturación, sin tarjeta de crédito, sin servicios pagados. Solo se necesita una cuenta de Google.
 
-Total time: ~8 minutes.
-
----
-
-## Step 1 – Create a Google Cloud Project
-
-1. Go to [console.cloud.google.com](https://console.cloud.google.com)
-2. Click the project dropdown at the top left (it might say "Select a project")
-3. Click **New Project**
-4. Name it something like `PluginDrive` (any name is fine)
-5. Leave "Location" as "No organization" unless your company has one
-6. Click **Create**
-7. Wait a few seconds, then make sure `PluginDrive` is selected as the active project in the top bar
+Tiempo total: ~8 minutos.
 
 ---
 
-## Step 2 – Enable the Google Drive API
+## Paso 1 – Crear un proyecto en Google Cloud
 
-1. In the left sidebar, go to **APIs & Services → Library**
-2. In the search box type: `Google Drive API`
-3. Click on **Google Drive API** in the results
-4. Click the blue **Enable** button
-5. Wait for it to activate (a few seconds)
+1. Ir a [console.cloud.google.com](https://console.cloud.google.com)
+2. Hacer clic en el selector de proyectos en la parte superior izquierda (puede decir "Seleccionar un proyecto")
+3. Hacer clic en **Proyecto nuevo**
+4. Darle un nombre como `GoogleDrive MCP` (cualquier nombre sirve)
+5. Dejar "Ubicación" como "Sin organización", a menos que la empresa tenga una
+6. Hacer clic en **Crear**
+7. Esperar unos segundos y verificar que `GoogleDrive MCP` esté seleccionado como proyecto activo en la barra superior
 
 ---
 
-## Step 3 – Configure the OAuth Consent Screen
+## Paso 2 – Habilitar la API de Google Drive
 
-1. In the left sidebar, go to **APIs & Services → OAuth consent screen**
-2. Select **External** as the User type
-3. Click **Create**
-4. Fill in the required fields:
-   - **App name**: `PluginDrive` (or anything you like)
-   - **User support email**: your email address
-   - **Developer contact information** (at the bottom): your email address
-5. Click **Save and Continue**
-6. On the "Scopes" page, click **Save and Continue** (no changes needed)
-7. On the "Test users" page:
-   - Click **Add Users**
-   - Add the Google accounts of **everyone on your team** who will use PluginDrive
-   - Click **Save and Continue**
-8. Click **Back to Dashboard**
+1. En el menú lateral, ir a **APIs y servicios → Biblioteca**
+2. En el buscador escribir: `Google Drive API`
+3. Hacer clic en **Google Drive API** en los resultados
+4. Hacer clic en el botón azul **Habilitar**
+5. Esperar unos segundos a que se active
+
+---
+
+## Paso 3 – Configurar la pantalla de consentimiento OAuth
+
+1. En el menú lateral, ir a **APIs y servicios → Pantalla de consentimiento de OAuth**
+2. Seleccionar **Externo** como tipo de usuario
+3. Hacer clic en **Crear**
+4. Completar los campos requeridos:
+   - **Nombre de la aplicación**: `GoogleDrive MCP` (o cualquier nombre)
+   - **Correo electrónico de asistencia del usuario**: su correo electrónico
+   - **Información de contacto del desarrollador** (al final): su correo electrónico
+5. Hacer clic en **Guardar y continuar**
+6. En la página de "Permisos", hacer clic en **Guardar y continuar** (sin cambios)
+7. En la página de "Usuarios de prueba":
+   - Hacer clic en **Agregar usuarios**
+   - Agregar las cuentas de Google de **todas las personas del equipo** que usarán GoogleDrive MCP
+   - Hacer clic en **Guardar y continuar**
+8. Hacer clic en **Volver al panel**
 
 > [!NOTE]
-> You added users as "Test users" because the app is in testing mode. This lets up to 100 users authenticate without publishing the app publicly. For most teams this is perfect — no extra steps required.
+> Los usuarios se agregan como "usuarios de prueba" porque la aplicación está en modo de prueba. Esto permite que hasta 100 usuarios se autentiquen sin necesidad de publicar la aplicación públicamente. Para la mayoría de los equipos esto es suficiente — no se requieren pasos adicionales.
 
 ---
 
-## Step 4 – Create OAuth 2.0 Credentials
+## Paso 4 – Crear credenciales OAuth 2.0
 
-1. In the left sidebar, go to **APIs & Services → Credentials**
-2. Click **+ Create Credentials** at the top
-3. Select **OAuth client ID**
-4. Under **Application type**, select **Desktop app**
-5. Name it `PluginDrive Desktop` (any name)
-6. Click **Create**
-7. A popup will appear showing your **Client ID** and **Client Secret**
-8. **Copy and keep both values** — you'll paste them into the installer
+1. En el menú lateral, ir a **APIs y servicios → Credenciales**
+2. Hacer clic en **+ Crear credenciales** en la parte superior
+3. Seleccionar **ID de cliente de OAuth**
+4. En **Tipo de aplicación**, seleccionar **Aplicación de escritorio**
+5. Darle el nombre `GoogleDrive MCP Desktop` (cualquier nombre)
+6. Hacer clic en **Crear**
+7. Aparecerá una ventana emergente con el **Client ID** y el **Client Secret**
+8. **Copiar y guardar ambos valores** — se deben pegar en el instalador
 
 > [!IMPORTANT]
-> The Client ID looks like: `123456789-abcdefghijkl.apps.googleusercontent.com`  
-> The Client Secret looks like: `GOCSPX-xxxxxxxxxxxxxxxxxxxxxxx`
+> El Client ID tiene este formato: `123456789-abcdefghijkl.apps.googleusercontent.com`
+> El Client Secret tiene este formato: `GOCSPX-xxxxxxxxxxxxxxxxxxxxxxx`
 >
-> You only need these once — the installer will save them locally.
+> Solo se necesitan una vez — el instalador los guarda localmente.
 
 ---
 
-## Step 5 – Run the Installer
+## Paso 5 – Ejecutar el instalador
 
-Go back and run the installer for your operating system:
+Volver y ejecutar el instalador según el sistema operativo:
 
 - **Mac:** `bash install/install-mac.sh`
-- **Windows:** Right-click `install\install-windows.ps1` → Run with PowerShell
+- **Windows:** Clic derecho en `install\install-windows.ps1` → Ejecutar con PowerShell
 
-Paste the Client ID and Client Secret when prompted.
-
----
-
-## Sharing with Teammates
-
-**You only create the Google Cloud Project once.** Your teammates do NOT need their own Google Cloud Project.
-
-Each teammate:
-
-1. Gets the `PluginDrive` folder (zip it and share via email / Drive / USB)
-2. Runs the installer
-3. Uses the **same** Client ID and Client Secret you created above
-4. Logs in with their own Google account when the browser opens
-
-Each person's Google token is saved locally on their own computer.
+Pegar el Client ID y el Client Secret cuando el instalador los solicite.
 
 ---
 
-## Troubleshooting
+## Compartir con el equipo
 
-| Problem                                                                         | Solution                                                                                   |
-| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| "Access blocked: PluginDrive has not completed the Google verification process" | You forgot to add the user as a Test User in Step 3. Go back and add them.                 |
-| "Error 400: redirect_uri_mismatch"                                              | The OAuth app type isn't set to "Desktop app". Delete the credential and create a new one. |
-| Browser doesn't open                                                            | Manually copy the URL from the terminal and paste it in any browser.                       |
-| "Token has been expired or revoked"                                             | Run `node src/server.js --auth` again to re-authenticate.                                  |
+**El proyecto de Google Cloud se crea una sola vez.** Los demás integrantes del equipo no necesitan crear el suyo.
+
+Cada persona del equipo:
+
+1. Recibe la carpeta `GoogleDriveMCP` (comprimida y compartida por email, Drive, USB, etc.)
+2. Ejecuta el instalador
+3. Usa el **mismo** Client ID y Client Secret creados anteriormente
+4. Inicia sesión con su propia cuenta de Google cuando se abre el navegador
+
+El token de Google de cada persona se guarda localmente en su propia computadora.
+
+---
+
+## Solución de problemas
+
+| Problema | Solución |
+| -------- | -------- |
+| "Access blocked: GoogleDrive MCP has not completed the Google verification process" | Falta agregar al usuario como usuario de prueba en el Paso 3. Volver y agregarlo. |
+| "Error 400: redirect_uri_mismatch" | El tipo de aplicación OAuth no está configurado como "Aplicación de escritorio". Eliminar la credencial y crear una nueva. |
+| El navegador no se abre | Copiar manualmente la URL que aparece en la terminal y pegarla en cualquier navegador. |
+| "Token has been expired or revoked" | Ejecutar `node src/server.js --auth` nuevamente para volver a autenticarse. |
