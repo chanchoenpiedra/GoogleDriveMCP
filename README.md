@@ -25,19 +25,19 @@ includeItemsFromAllDrives: true
 supportsAllDrives: true
 ```
 
-Sin esos flags, los Shared Drives son invisibles. GoogleDriveMCP los agrega, y de paso convierte todos los formatos de archivo que Drive no exporta directamente como texto.
+Sin esos flags, los Shared Drives son invisibles. GoogleDriveMCP los agrega, y además convierte todos los formatos de archivo que Drive no exporta directamente como texto.
 
 ---
 
-## Lo que podés hacer después de instalarlo
+## Lo que se puede hacer después de instalarlo
 
-Dentro de Claude Desktop, simplemente hablás de forma natural:
+Dentro de Claude Desktop, se puede hablar de forma natural:
 
-- *"Listá todos mis Google Drives"*
-- *"Mostrá los archivos del Shared Drive 'Reportes Q1'"*
-- *"Leé el archivo Budget_2026.xlsx de nuestro drive de Finanzas"*
-- *"Resumí la presentación Kickoff.pptx"*
-- *"Buscá archivos sobre facturas en todos mis drives"*
+- *"Lista todos mis Google Drives"*
+- *"Muestra los archivos del Shared Drive 'Reportes Q1'"*
+- *"Lee el archivo Budget_2026.xlsx de nuestro drive de Finanzas"*
+- *"Resume la presentación Kickoff.pptx"*
+- *"Busca archivos sobre facturas en todos mis drives"*
 - *"¿Qué hay en la carpeta 'Contratos > 2025'?"*
 
 ---
@@ -63,7 +63,7 @@ Dentro de Claude Desktop, simplemente hablás de forma natural:
 |-----------|-------|
 | [Claude Desktop](https://claude.ai/download) | Gratis. Windows o Mac. |
 | [Node.js 18+](https://nodejs.org/en/download/) | Gratis. El instalador lo verifica. |
-| [Google Cloud Project](docs/google-cloud-setup.md) | Gratis. Setup único de ~8 minutos. |
+| [Google Cloud Project](docs/google-cloud-setup.md) | Gratis. Configuración única de ~8 minutos. |
 
 ---
 
@@ -71,7 +71,7 @@ Dentro de Claude Desktop, simplemente hablás de forma natural:
 
 ### Paso 1 — Crear credenciales en Google Cloud (una sola vez, ~8 min)
 
-Seguí la guía **[docs/google-cloud-setup.md](docs/google-cloud-setup.md)**. Explica paso a paso cómo crear credenciales OAuth2 gratuitas.
+Siga la guía **[docs/google-cloud-setup.md](docs/google-cloud-setup.md)**. Explica paso a paso cómo crear credenciales OAuth2 gratuitas.
 
 ### Paso 2 — Ejecutar el instalador
 
@@ -89,27 +89,27 @@ install\install-windows.ps1
 
 El instalador va a:
 
-- Verificar que tenés Claude Desktop y Node.js
+- Verificar que tiene Claude Desktop y Node.js instalados
 - Instalar las dependencias
-- Pedir tu Client ID y Client Secret (del paso 1)
+- Pedir el Client ID y Client Secret (del paso 1)
 - Configurar Claude Desktop automáticamente
-- Abrir el navegador para que inicies sesión con Google
+- Abrir el navegador para iniciar sesión con Google
 
 ### Paso 3 — Reiniciar Claude Desktop
 
-Cerrá completamente (⌘Q en Mac / bandeja del sistema en Windows) y volvé a abrirlo. Iniciá un chat nuevo y escribí:
+Cierre completamente (⌘Q en Mac / bandeja del sistema en Windows) y vuelva a abrirlo. Inicie un chat nuevo y escriba:
 
-> *"Listá todos mis Google Drives"*
+> *"Lista todos mis Google Drives"*
 
 ---
 
 ## Compartir con compañeros de equipo
 
-Una vez que vos creaste las credenciales en Google Cloud, tus compañeros no necesitan crear las suyas.
+Una vez que se crean las credenciales en Google Cloud, los demás integrantes del equipo no necesitan crear las suyas.
 
-1. Comprimí esta carpeta y compartila (email, Drive, USB, etc.)
-2. Cada compañero ejecuta el instalador
-3. Usan el **mismo Client ID + Client Secret** que creaste en Google Cloud
+1. Comprima esta carpeta y compártala (email, Drive, USB, etc.)
+2. Cada persona ejecuta el instalador
+3. Usan el **mismo Client ID + Client Secret** creado en Google Cloud
 4. Cada uno inicia sesión con **su propia cuenta de Google** cuando se abre el navegador
 5. El token se guarda únicamente en su propia computadora
 
@@ -125,7 +125,7 @@ Claude Desktop  ──MCP (stdio)──►  GoogleDriveMCP (Node.js)
                          My Drive + Shared Drives / Carpetas
 ```
 
-GoogleDriveMCP corre como un servidor local en segundo plano. Claude Desktop se comunica con él vía stdio usando el **Model Context Protocol (MCP)**. Son 5 herramientas disponibles:
+GoogleDriveMCP corre como un servidor local en segundo plano. Claude Desktop se comunica con él vía stdio usando el **Model Context Protocol (MCP)**. Hay 5 herramientas disponibles:
 
 | Herramienta | Qué hace |
 |-------------|----------|
@@ -163,14 +163,14 @@ GoogleDriveMCP/
 <details>
 <summary><strong>Claude dice que no puede acceder a Google Drive</strong></summary>
 
-Verificá que GoogleDriveMCP aparece en la configuración de Claude Desktop:
+Verifique que GoogleDriveMCP aparece en la configuración de Claude Desktop:
 
 ```json
 // ~/Library/Application Support/Claude/claude_desktop_config.json (Mac)
 // %APPDATA%\Claude\claude_desktop_config.json (Windows)
 {
   "mcpServers": {
-    "plugindrive": {
+    "googledrivemcp": {
       "command": "node",
       "args": ["/ruta/a/GoogleDriveMCP/src/server.js"]
     }
@@ -178,28 +178,28 @@ Verificá que GoogleDriveMCP aparece en la configuración de Claude Desktop:
 }
 ```
 
-Si falta esa sección, volvé a ejecutar el instalador.
+Si falta esa sección, vuelva a ejecutar el instalador.
 
 </details>
 
 <details>
 <summary><strong>"Access blocked: GoogleDriveMCP has not completed the Google verification process"</strong></summary>
 
-Olvidaste agregar el usuario como Test User en el paso 3 del setup de Google Cloud. Volvé a la pantalla de OAuth consent → Test users y agregá la cuenta.
+Falta agregar el usuario como Test User en el paso 3 del setup de Google Cloud. Vuelva a la pantalla de OAuth consent → Test users y agregue la cuenta.
 
 </details>
 
 <details>
 <summary><strong>"Error 400: redirect_uri_mismatch"</strong></summary>
 
-El tipo de aplicación OAuth no está configurado como "Desktop app". Borrá la credencial en Google Cloud y creá una nueva con el tipo correcto.
+El tipo de aplicación OAuth no está configurado como "Desktop app". Elimine la credencial en Google Cloud y cree una nueva con el tipo correcto.
 
 </details>
 
 <details>
 <summary><strong>El token expiró o fue revocado</strong></summary>
 
-Volvé a autenticarte ejecutando:
+Vuelva a autenticarse ejecutando:
 
 ```bash
 # Mac / Linux
@@ -212,9 +212,9 @@ node src\server.js --auth
 </details>
 
 <details>
-<summary><strong>El navegador no se abre solo</strong></summary>
+<summary><strong>El navegador no se abre automáticamente</strong></summary>
 
-Copiá la URL que aparece en la terminal y pegala manualmente en cualquier navegador.
+Copie la URL que aparece en la terminal y péguela manualmente en cualquier navegador.
 
 </details>
 
