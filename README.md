@@ -1,6 +1,6 @@
 <div align="center">
 
-# PluginDrive
+# GoogleDriveMCP
 
 **Conecta Claude Desktop con tus Google Drive compartidos**
 
@@ -10,7 +10,7 @@
 [![Google Drive API](https://img.shields.io/badge/Google%20Drive%20API-v3-4285F4?logo=google-drive&logoColor=white)](https://developers.google.com/drive)
 
 La integración nativa de Claude con Google Drive solo funciona con Google Docs personales.<br>
-**PluginDrive** extiende esa integración para acceder a **Shared Drives**, **carpetas compartidas** y todos los formatos de archivo — incluyendo XLSX, PPTX, PDF y DOCX — directamente desde cualquier conversación.
+**GoogleDriveMCP** extiende esa integración para acceder a **Shared Drives**, **carpetas compartidas** y todos los formatos de archivo — incluyendo XLSX, PPTX, PDF y DOCX — directamente desde cualquier conversación.
 
 </div>
 
@@ -25,7 +25,7 @@ includeItemsFromAllDrives: true
 supportsAllDrives: true
 ```
 
-Sin esos flags, los Shared Drives son invisibles. PluginDrive los agrega, y de paso convierte todos los formatos de archivo que Drive no exporta directamente como texto.
+Sin esos flags, los Shared Drives son invisibles. GoogleDriveMCP los agrega, y de paso convierte todos los formatos de archivo que Drive no exporta directamente como texto.
 
 ---
 
@@ -118,14 +118,14 @@ Una vez que vos creaste las credenciales en Google Cloud, tus compañeros no nec
 ## Cómo funciona
 
 ```
-Claude Desktop  ──MCP (stdio)──►  PluginDrive (Node.js)
+Claude Desktop  ──MCP (stdio)──►  GoogleDriveMCP (Node.js)
                                          │
                                Google Drive API v3
                                          │
                          My Drive + Shared Drives / Carpetas
 ```
 
-PluginDrive corre como un servidor local en segundo plano. Claude Desktop se comunica con él vía stdio usando el **Model Context Protocol (MCP)**. Son 5 herramientas disponibles:
+GoogleDriveMCP corre como un servidor local en segundo plano. Claude Desktop se comunica con él vía stdio usando el **Model Context Protocol (MCP)**. Son 5 herramientas disponibles:
 
 | Herramienta | Qué hace |
 |-------------|----------|
@@ -140,7 +140,7 @@ PluginDrive corre como un servidor local en segundo plano. Claude Desktop se com
 ## Estructura del proyecto
 
 ```
-PluginDrive/
+GoogleDriveMCP/
 ├── src/
 │   ├── server.js           ← Servidor MCP (Claude habla con esto)
 │   ├── auth.js             ← Flujo OAuth2 con Google
@@ -163,7 +163,7 @@ PluginDrive/
 <details>
 <summary><strong>Claude dice que no puede acceder a Google Drive</strong></summary>
 
-Verificá que PluginDrive aparece en la configuración de Claude Desktop:
+Verificá que GoogleDriveMCP aparece en la configuración de Claude Desktop:
 
 ```json
 // ~/Library/Application Support/Claude/claude_desktop_config.json (Mac)
@@ -172,7 +172,7 @@ Verificá que PluginDrive aparece en la configuración de Claude Desktop:
   "mcpServers": {
     "plugindrive": {
       "command": "node",
-      "args": ["/ruta/a/PluginDrive/src/server.js"]
+      "args": ["/ruta/a/GoogleDriveMCP/src/server.js"]
     }
   }
 }
@@ -183,7 +183,7 @@ Si falta esa sección, volvé a ejecutar el instalador.
 </details>
 
 <details>
-<summary><strong>"Access blocked: PluginDrive has not completed the Google verification process"</strong></summary>
+<summary><strong>"Access blocked: GoogleDriveMCP has not completed the Google verification process"</strong></summary>
 
 Olvidaste agregar el usuario como Test User en el paso 3 del setup de Google Cloud. Volvé a la pantalla de OAuth consent → Test users y agregá la cuenta.
 
