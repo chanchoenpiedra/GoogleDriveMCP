@@ -1,0 +1,40 @@
+{
+  "name": "plugindrive",
+  "version": "1.0.0",
+  "description": "MCP server that connects Claude Desktop to Google Drive Shared Drives",
+  "main": "src/server.js",
+  "type": "module",
+  "bin": {
+    "plugindrive": "./src/server.js"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "auth": "node src/server.js --auth",
+    "test": "node --test tests/"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "googleapis": "^144.0.0",
+    "adm-zip": "^0.5.16",
+    "mammoth": "^1.8.0",
+    "open": "^10.1.0",
+    "pdf-parse": "^1.1.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "claude",
+    "mcp",
+    "google-drive",
+    "shared-drives",
+    "ai",
+    "anthropic"
+  ],
+  "author": "",
+  "license": "MIT"
+}
