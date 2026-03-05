@@ -1,4 +1,4 @@
-# PluginDrive – Windows Installer (PowerShell)
+﻿# PluginDrive – Windows Installer (PowerShell)
 # Connects Claude Desktop to Google Drive Shared Drives via MCP
 # Usage: Right-click → "Run with PowerShell"   OR   .\install-windows.ps1
 
