@@ -8,7 +8,7 @@ $ErrorActionPreference = 'Stop'
 
 $PluginDir = Split-Path $PSScriptRoot -Parent
 $ConfigDir = Join-Path $env:USERPROFILE '.plugindrive'
-$ClaudeConfigPath = Join-Path $env:APPDATA 'Claude\claude_desktop_config.json'
+# $ClaudeConfigPath is set dynamically in Step 1 after detecting install type
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 function Write-Header($msg) {
@@ -34,11 +34,21 @@ Write-Host ""
 # ── Step 1: Check Claude Desktop ─────────────────────────────────────────────
 Write-Header "Step 1: Checking Claude Desktop"
 
-$ClaudeDir = Join-Path $env:APPDATA 'Claude'
-if (-not (Test-Path $ClaudeDir)) {
+$msixDir = Get-ChildItem (Join-Path $env:LOCALAPPDATA 'Packages') -Filter 'Claude_*' -Directory -ErrorAction SilentlyContinue | Select-Object -First 1
+$standardDir = Join-Path $env:APPDATA 'Claude'
+
+if ($msixDir) {
+    $ClaudeConfigDir = Join-Path $msixDir.FullName 'LocalCache\Roaming\Claude'
+    $ClaudeConfigPath = Join-Path $ClaudeConfigDir 'claude_desktop_config.json'
+    Write-OK "Claude Desktop found (Microsoft Store version)"
+    Write-Warn "Store version detected — config will be written to virtualized path"
+} elseif (Test-Path $standardDir) {
+    $ClaudeConfigDir = $standardDir
+    $ClaudeConfigPath = Join-Path $ClaudeConfigDir 'claude_desktop_config.json'
+    Write-OK "Claude Desktop found"
+} else {
     Write-Fail "Claude Desktop not found.`nDownload it from https://claude.ai/download, install it, then run this script again."
 }
-Write-OK "Claude Desktop found"
 
 # ── Step 2: Check / Install Node.js ──────────────────────────────────────────
 Write-Header "Step 2: Checking Node.js"
@@ -122,6 +132,10 @@ $ServerPath = ($PluginDir -replace '\\', '/') + '/src/server.js'
 $mcpEntry = @{
     command = "node"
     args    = @($ServerPath)
+}
+
+if (-not (Test-Path $ClaudeConfigDir)) {
+    New-Item -ItemType Directory -Path $ClaudeConfigDir -Force | Out-Null
 }
 
 if (Test-Path $ClaudeConfigPath) {
