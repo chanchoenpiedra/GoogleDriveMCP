@@ -81,7 +81,13 @@ async function runOAuthFlow(oAuth2Client) {
   console.error('   Opening your browser for login...\n');
   console.error(`   If the browser doesn't open, paste this URL manually:\n   ${authUrl}\n`);
 
-  await open(authUrl);
+  try {
+    await open(authUrl);
+  } catch {
+    // Browser launch failed (common on some Windows environments).
+    // The URL has already been printed above — the user can open it manually.
+    console.error('   (Could not open browser automatically — please paste the URL above into your browser.)\n');
+  }
 
   // Wait for the OAuth callback on localhost:3456
   const code = await waitForAuthCode();

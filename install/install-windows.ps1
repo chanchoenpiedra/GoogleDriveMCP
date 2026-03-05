@@ -158,13 +158,16 @@ Write-OK "Claude Desktop config updated"
 # ── Step 6: First-time Google login ──────────────────────────────────────────
 Write-Header "Step 6: Google Drive authorisation"
 
-Write-Host "Your browser will open for Google login."
+Write-Host "Press Enter and your browser will open for Google login."
 Write-Host "Sign in and allow 'Google Drive (read-only)' access."
 Write-Host ""
-Read-Host "Press Enter when ready"
+Write-Host "If the browser does not open automatically, look for a URL printed below" -ForegroundColor Yellow
+Write-Host "and paste it into your browser manually." -ForegroundColor Yellow
+Write-Host ""
+Read-Host "Press Enter to open the browser"
 
 node "$PluginDir\src\server.js" --auth
-if ($LASTEXITCODE -ne 0) { Write-Fail "Google authorisation failed. Check credentials and try again." }
+if ($LASTEXITCODE -ne 0) { Write-Fail "Google authorisation failed.`nIf the browser did not open, copy the URL printed above and paste it into your browser, then run this step again." }
 Write-OK "Google Drive authorised"
 
 # ── Done ─────────────────────────────────────────────────────────────────────
