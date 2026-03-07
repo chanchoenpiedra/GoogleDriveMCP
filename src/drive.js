@@ -74,7 +74,7 @@ export async function listFiles(drive, parentId, driveId = null, maxResults = 10
     params.driveId = driveId;
     params.corpora = 'drive';
   } else {
-    params.corpora = 'user';
+    params.corpora = 'allDrives';
   }
 
   const res = await drive.files.list(params);
