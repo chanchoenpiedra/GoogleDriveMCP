@@ -120,7 +120,7 @@ $credentials = @{
     }
 }
 $credPath = Join-Path $ConfigDir 'credentials.json'
-$credentials | ConvertTo-Json -Depth 5 | Set-Content $credPath -Encoding UTF8
+[System.IO.File]::WriteAllText($credPath, ($credentials | ConvertTo-Json -Depth 5))
 Write-OK "Credentials saved to $credPath"
 
 # ── Step 5: Update Claude Desktop config ─────────────────────────────────────
@@ -144,14 +144,14 @@ if (Test-Path $ClaudeConfigPath) {
         $config | Add-Member -NotePropertyName 'mcpServers' -NotePropertyValue ([PSCustomObject]@{})
     }
     $config.mcpServers | Add-Member -NotePropertyName 'plugindrive' -NotePropertyValue $mcpEntry -Force
-    $config | ConvertTo-Json -Depth 10 | Set-Content $ClaudeConfigPath -Encoding UTF8
+    [System.IO.File]::WriteAllText($ClaudeConfigPath, ($config | ConvertTo-Json -Depth 10))
 } else {
     $config = @{
         mcpServers = @{
             plugindrive = $mcpEntry
         }
     }
-    $config | ConvertTo-Json -Depth 10 | Set-Content $ClaudeConfigPath -Encoding UTF8
+    [System.IO.File]::WriteAllText($ClaudeConfigPath, ($config | ConvertTo-Json -Depth 10))
 }
 Write-OK "Claude Desktop config updated"
 
